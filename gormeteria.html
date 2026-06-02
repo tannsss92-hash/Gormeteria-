@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gormeteria – Premium Restaurant & Modern Dining in Bandung. Experience exceptional dining with signature dishes, elegant ambience, and professional service. Rating 4.6/5 from 8,000+ reviews.">
+<meta name="keywords" content="gormeteria bandung, premium restaurant bandung, fine dining bandung, steak bandung, restaurant pasir kaliki">
+<title>Gormeteria – Experience Exceptional Dining</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Jost:wght@200;300;400;500&family=Italiana&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0F172A;
+  --black-mid: #1E293B;
+  --black-soft: #334155;
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #A8892A;
+  --gold-dim: rgba(212,175,55,0.15);
+  --white: #FFFFFF;
+  --gray: #F8FAFC;
+  --gray-mid: #94A3B8;
+  --text-dim: rgba(255,255,255,0.55);
+  --text-mid: rgba(255,255,255,0.75);
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(212,175,55,0.18);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(212,175,55,0.5);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99998;
+  transition: all 0.3s ease;
+  transform: translate(-14px, -14px);
+}
+.cursor-ring.expand { width: 60px; height: 60px; transform: translate(-26px,-26px); border-color: var(--gold); }
+
+/* ── LOADER ── */
+#loader {
+  position: fixed; inset: 0; z-index: 99997;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 32px;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#loader.out { opacity: 0; visibility: hidden; }
+.loader-line {
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  animation: linePulse 1.4s ease-in-out infinite;
+}
+@keyframes linePulse {
+  0%,100% { opacity: 0.3; transform: scaleY(0.7); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+.loader-logo-wrap { text-align: center; }
+.loader-g {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 5rem; font-weight: 400;
+  color: var(--gold);
+  letter-spacing: -2px;
+  line-height: 1;
+  animation: fadeIn 0.8s ease both;
+}
+.loader-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem; font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  animation: fadeIn 0.8s ease 0.2s both;
+}
+.loader-progress {
+  width: 160px; height: 1px;
+  background: rgba(212,175,55,0.15);
+  position: relative; overflow: hidden;
+}
+.loader-progress-fill {
+  position: absolute; top: 0; left: 0; bottom: 0;
+  background: var(--gold);
+  animation: progressFill 1.6s ease forwards;
+}
+@keyframes progressFill { from{width:0} to{width:100%} }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 6%;
+  transition: all 0.5s ease;
+}
+nav.scrolled {
+  background: rgba(15,23,42,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 80px;
+}
+.nav-logo { text-decoration: none; }
+.nav-logo-text {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.7rem; font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.nav-logo-sub {
+  display: block;
+  font-size: 0.52rem; font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 5px; text-transform: uppercase;
+  margin-top: -4px;
+}
+.nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; font-weight: 400;
+  color: var(--text-mid);
+  text-decoration: none;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-reserve {
+  font-size: 0.68rem !important; font-weight: 400 !important;
+  color: var(--black) !important;
+  background: var(--gold) !important;
+  padding: 10px 24px;
+  letter-spacing: 2px !important;
+  transition: all 0.3s !important;
+}
+.nav-reserve::after { display: none !important; }
+.nav-reserve:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+
+.hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+.hamburger span { width: 28px; height: 1px; background: var(--gold); transition: all 0.3s; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; top: 80px;
+  background: rgba(15,23,42,0.98); backdrop-filter: blur(20px);
+  z-index: 999; padding: 40px 6%;
+  border-top: 1px solid var(--glass-border);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block; color: var(--text-mid);
+  font-size: 1.5rem; font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  text-decoration: none; padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+#hero {
+  height: 100vh; min-height: 700px;
+  position: relative; display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.5) 50%, rgba(15,23,42,0.9) 100%),
+    url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=90') center/cover no-repeat;
+  transform: scale(1.04);
+  animation: slowZoom 18s ease-in-out infinite alternate;
+}
+@keyframes slowZoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.00) translateX(-1%); }
+}
+.hero-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4; pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 6%; width: 100%;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+  animation: fadeInUp 1s ease 0.3s both;
+}
+.hero-eyebrow-line { width: 48px; height: 1px; background: var(--gold); }
+.hero-eyebrow-text {
+  font-size: 0.68rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 4px; text-transform: uppercase;
+}
+h1.hero-title {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(3.5rem, 7vw, 7.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 28px;
+  max-width: 700px;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+h1.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 1rem; font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.8; max-width: 420px;
+  margin-bottom: 52px;
+  animation: fadeInUp 1s ease 0.7s both;
+}
+.hero-btns {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  animation: fadeInUp 1s ease 0.9s both;
+}
+.btn-primary {
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Jost', sans-serif;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212,175,55,0.3); }
+.btn-ghost {
+  padding: 15px 38px;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Jost', sans-serif;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 6%;
+  display: flex; align-items: center; gap: 12px;
+  animation: fadeIn 1s ease 1.4s both;
+}
+.hero-scroll-line {
+  width: 1px; height: 52px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%,100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.6); opacity: 0.4; }
+}
+.hero-scroll-text {
+  font-size: 0.62rem; font-weight: 300;
+  color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.hero-rating {
+  position: absolute; bottom: 40px; right: 6%;
+  text-align: right;
+  animation: fadeIn 1s ease 1.2s both;
+}
+.hero-rating-num {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 3.2rem; font-weight: 400;
+  color: var(--gold); line-height: 1;
+}
+.hero-rating-label {
+  font-size: 0.62rem; font-weight: 300;
+  color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 6px;
+}
+.hero-rating-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; margin-top: 4px; }
+
+/* ── MARQUEE ── */
+.marquee-band {
+  background: var(--gold);
+  padding: 14px 0;
+  overflow: hidden; white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex; gap: 0;
+  animation: marquee 22s linear infinite;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 24px;
+  padding: 0 24px;
+  font-size: 0.68rem; font-weight: 500;
+  color: var(--black);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.marquee-dot { width: 4px; height: 4px; background: var(--black-soft); border-radius: 50%; }
+
+/* ── CONTAINER ── */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 6%; }
+
+/* ── SECTION LABELS ── */
+.eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 16px;
+}
+.eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+.eyebrow-text {
+  font-size: 0.65rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 4px; text-transform: uppercase;
+}
+.section-title {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 400; line-height: 1.1;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+}
+.section-title em { font-style: italic; }
+
+/* ── ABOUT ── */
+#about {
+  padding: 140px 0;
+  background: var(--black);
+  position: relative; overflow: hidden;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 100px; align-items: center;
+}
+.about-visual { position: relative; }
+.about-img-main {
+  width: 100%; height: 580px;
+  background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=85') center/cover;
+  filter: brightness(0.85);
+}
+.about-img-accent {
+  position: absolute; bottom: -40px; right: -40px;
+  width: 200px; height: 260px;
+  background: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80') center/cover;
+  border: 3px solid var(--black);
+  filter: brightness(0.9);
+}
+.about-gold-line {
+  position: absolute; top: -20px; left: -20px;
+  width: 80px; height: 80px;
+  border-top: 1px solid var(--gold);
+  border-left: 1px solid var(--gold);
+}
+.about-content { color: var(--text-mid); }
+.about-title { color: var(--white); margin-bottom: 28px; }
+.about-text {
+  font-size: 1rem; line-height: 1.9;
+  color: var(--text-mid); margin-bottom: 20px;
+}
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; margin: 44px 0;
+  border: 1px solid var(--glass-border);
+}
+.about-stat {
+  padding: 28px 24px;
+  border-right: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.3s;
+}
+.about-stat:hover { background: var(--glass); }
+.about-stat:nth-child(even) { border-right: none; }
+.about-stat:nth-child(3), .about-stat:nth-child(4) { border-bottom: none; }
+.about-stat-num {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 2.2rem; font-weight: 400;
+  color: var(--gold); display: block; line-height: 1;
+}
+.about-stat-label { font-size: 0.72rem; font-weight: 300; color: var(--text-dim); letter-spacing: 1px; margin-top: 8px; }
+
+/* ── MENU ── */
+#menu {
+  padding: 140px 0;
+  background: var(--black-mid);
+  position: relative;
+}
+.menu-header { text-align: center; margin-bottom: 16px; }
+.menu-header .eyebrow { justify-content: center; }
+.menu-header .section-title { color: var(--white); }
+.menu-filter {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0;
+  margin: 40px 0 60px;
+  border: 1px solid var(--glass-border);
+  width: fit-content; margin-left: auto; margin-right: auto;
+}
+.filter-btn {
+  padding: 12px 28px;
+  background: transparent; border: none;
+  color: var(--text-dim); font-size: 0.68rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+  font-family: 'Jost', sans-serif;
+  border-right: 1px solid var(--glass-border);
+  white-space: nowrap;
+}
+.filter-btn:last-child { border-right: none; }
+.filter-btn.active, .filter-btn:hover { background: var(--gold); color: var(--black); }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1px;
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+}
+.menu-card {
+  background: var(--black-mid);
+  position: relative; overflow: hidden;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.menu-card:hover { background: var(--black-soft); z-index: 2; }
+.menu-img {
+  height: 240px; overflow: hidden;
+  position: relative;
+}
+.menu-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s ease, filter 0.5s ease;
+  filter: brightness(0.8) saturate(0.9);
+}
+.menu-card:hover .menu-img img { transform: scale(1.06); filter: brightness(0.95) saturate(1.1); }
+.menu-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 50%);
+}
+.menu-cat {
+  position: absolute; top: 16px; left: 16px;
+  font-size: 0.6rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+  background: rgba(15,23,42,0.7);
+  backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-left: 2px solid var(--gold);
+}
+.menu-body { padding: 24px 28px 28px; }
+.menu-name {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--white); margin-bottom: 8px;
+  line-height: 1.2;
+}
+.menu-desc {
+  font-size: 0.82rem; font-weight: 300;
+  color: var(--text-dim); line-height: 1.7;
+  margin-bottom: 20px;
+}
+.menu-footer { display: flex; align-items: center; justify-content: space-between; }
+.menu-price {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--gold);
+}
+.menu-order {
+  font-size: 0.62rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-dim); cursor: pointer;
+  background: none; border: none;
+  font-family: 'Jost', sans-serif;
+  transition: color 0.3s;
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+}
+.menu-order:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── WHY ── */
+#why {
+  padding: 140px 0;
+  background: var(--black);
+}
+.why-grid-wrap {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 100px; align-items: center;
+}
+.why-img {
+  height: 680px;
+  background: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=85') center/cover;
+  filter: brightness(0.8);
+  position: relative;
+}
+.why-img::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--black));
+}
+.why-content {}
+.why-list { margin-top: 48px; display: flex; flex-direction: column; gap: 0; }
+.why-item {
+  display: flex; align-items: flex-start; gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.3s;
+}
+.why-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+.why-item:hover { padding-left: 8px; }
+.why-num {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 0.7rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 1px;
+  min-width: 24px; padding-top: 2px;
+}
+.why-text-title {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1rem; font-weight: 400;
+  color: var(--white); margin-bottom: 5px;
+}
+.why-text-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
+
+/* ── TESTIMONIALS ── */
+#testimoni {
+  padding: 140px 0;
+  background: var(--black-mid);
+  position: relative; overflow: hidden;
+}
+.testi-header { text-align: center; margin-bottom: 80px; }
+.testi-header .section-title { color: var(--white); }
+.testi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+}
+.testi-card {
+  background: var(--black-mid);
+  padding: 52px 44px;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.testi-card:hover { background: rgba(212,175,55,0.04); }
+.testi-card::before {
+  content: '"';
+  position: absolute; top: 20px; right: 32px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: 8rem; font-style: italic;
+  color: var(--gold); opacity: 0.07;
+  line-height: 1; pointer-events: none;
+}
+.testi-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 3px; margin-bottom: 24px; }
+.testi-text {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic; font-size: 1.1rem; font-weight: 400;
+  color: var(--text-mid); line-height: 1.75;
+  margin-bottom: 36px;
+}
+.testi-author { display: flex; align-items: center; gap: 16px; }
+.testi-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--gold-dim); border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bodoni Moda', serif; font-size: 1.1rem;
+  color: var(--gold);
+}
+.testi-name {
+  font-size: 0.8rem; font-weight: 400;
+  color: var(--white); letter-spacing: 0.5px;
+}
+.testi-role { font-size: 0.7rem; font-weight: 300; color: var(--text-dim); margin-top: 3px; }
+
+/* ── GALLERY ── */
+#gallery {
+  padding: 140px 0;
+  background: var(--black);
+}
+.gallery-header { text-align: center; margin-bottom: 64px; }
+.gallery-header .section-title { color: var(--white); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+}
+.gallery-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--black-mid);
+}
+.gallery-item:first-child { grid-row: span 2; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.7s ease, filter 0.5s;
+  filter: brightness(0.75) saturate(0.8);
+}
+.gallery-item:hover img { transform: scale(1.06); filter: brightness(0.9) saturate(1); }
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.7) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 24px;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-label {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic; font-size: 0.95rem;
+  color: var(--gold); letter-spacing: 0.5px;
+}
+
+/* ── STATS ── */
+.stats-band {
+  padding: 80px 0;
+  background: var(--gold);
+  position: relative; overflow: hidden;
+}
+.stats-band::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: rgba(15,23,42,0.06);
+  pointer-events: none;
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.stat-item {
+  text-align: center; padding: 20px;
+  border-right: 1px solid rgba(15,23,42,0.15);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 3rem; font-weight: 400;
+  color: var(--black); line-height: 1; margin-bottom: 10px;
+}
+.stat-label {
+  font-size: 0.68rem; font-weight: 400;
+  color: var(--black-soft); letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ── RESERVATION ── */
+#reservasi {
+  padding: 140px 0;
+  background: var(--black);
+  position: relative; overflow: hidden;
+}
+#reservasi::before {
+  content: '';
+  position: absolute; top: 0; right: 0; bottom: 0; left: 50%;
+  background: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=80') center/cover;
+  opacity: 0.08;
+}
+.reservasi-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 100px; align-items: start;
+  position: relative;
+}
+.reservasi-left {}
+.reservasi-left .section-title { color: var(--white); margin-bottom: 24px; }
+.reservasi-text { font-size: 0.95rem; font-weight: 300; color: var(--text-dim); line-height: 1.9; margin-bottom: 48px; }
+.reservasi-info-item {
+  display: flex; gap: 16px; margin-bottom: 20px;
+  align-items: flex-start;
+}
+.reservasi-info-icon {
+  width: 40px; height: 40px; min-width: 40px;
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; color: var(--gold);
+}
+.reservasi-info-label {
+  font-size: 0.65rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.reservasi-info-value { font-size: 0.88rem; font-weight: 300; color: var(--text-mid); }
+
+.reservasi-form { position: relative; }
+.form-title {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.8rem; font-style: italic;
+  color: var(--gold); margin-bottom: 8px;
+}
+.form-subtitle { font-size: 0.82rem; font-weight: 300; color: var(--text-dim); margin-bottom: 36px; letter-spacing: 0.5px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block; font-size: 0.62rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 14px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white); font-size: 0.88rem; font-weight: 300;
+  transition: all 0.3s; outline: none;
+  font-family: 'Jost', sans-serif;
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.04);
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.btn-submit {
+  width: 100%; padding: 18px;
+  background: var(--gold); color: var(--black);
+  border: none; cursor: pointer;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.4s; margin-top: 8px;
+}
+.btn-submit:hover { background: var(--gold-light); box-shadow: 0 8px 32px rgba(212,175,55,0.3); }
+
+/* ── CONTACT ── */
+#kontak {
+  padding: 100px 0 0;
+  background: var(--black-mid);
+}
+.kontak-grid {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 80px; align-items: start;
+  padding-bottom: 100px;
+}
+.kontak-info .section-title { color: var(--white); margin-bottom: 40px; }
+.kontak-item {
+  display: flex; gap: 16px; margin-bottom: 18px;
+  padding: 20px; border: 1px solid var(--glass-border);
+  transition: all 0.3s;
+}
+.kontak-item:hover { border-color: rgba(212,175,55,0.4); background: var(--glass); }
+.kontak-icon {
+  color: var(--gold); font-size: 1rem;
+  min-width: 20px; margin-top: 2px;
+}
+.kontak-label {
+  font-size: 0.62rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.kontak-value { font-size: 0.88rem; font-weight: 300; color: var(--text-mid); line-height: 1.6; }
+.kontak-value a { color: var(--text-mid); text-decoration: none; transition: color 0.3s; }
+.kontak-value a:hover { color: var(--gold); }
+.map-wrap { height: 420px; border: 1px solid var(--glass-border); }
+.map-wrap iframe { width: 100%; height: 100%; border: none; filter: grayscale(0.4) invert(0.9) hue-rotate(180deg); }
+
+/* ── FOOTER ── */
+footer {
+  background: #060C18;
+  padding: 80px 0 0;
+  border-top: 1px solid var(--glass-border);
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px; padding-bottom: 60px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.footer-brand .footer-logo {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 2rem; font-weight: 400; color: var(--gold);
+  margin-bottom: 16px; display: block;
+}
+.footer-brand .footer-tagline {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic; font-size: 0.95rem;
+  color: var(--text-dim); line-height: 1.7; margin-bottom: 28px;
+}
+.footer-social { display: flex; gap: 10px; }
+.social-icon {
+  width: 40px; height: 40px;
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 0.9rem;
+  text-decoration: none; transition: all 0.3s;
+}
+.social-icon:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.footer-col h4 {
+  font-size: 0.62rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col ul a {
+  font-size: 0.82rem; font-weight: 300;
+  color: var(--text-dim); text-decoration: none; transition: color 0.3s;
+}
+.footer-col ul a:hover { color: var(--gold); }
+.footer-hours li {
+  display: flex; justify-content: space-between;
+  margin-bottom: 12px; gap: 16px;
+}
+.footer-hours .day { font-size: 0.8rem; font-weight: 300; color: var(--text-dim); }
+.footer-hours .time { font-size: 0.8rem; font-weight: 300; color: var(--gold-dark); }
+.footer-bottom {
+  padding: 28px 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy { font-size: 0.72rem; font-weight: 300; color: var(--text-dim); letter-spacing: 0.5px; }
+.footer-copy a { color: var(--gold-dark); text-decoration: none; }
+
+/* ── DEVELOPER CREDIT ── */
+.dev-credit {
+  background: #040810;
+  padding: 20px 6%;
+  border-top: 1px solid rgba(212,175,55,0.06);
+}
+.dev-credit-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.dev-text { font-size: 0.7rem; font-weight: 300; color: var(--text-dim); letter-spacing: 1px; }
+.dev-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(212,175,55,0.2);
+  color: var(--gold); padding: 5px 16px;
+  font-size: 0.7rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+  text-decoration: none; transition: all 0.3s;
+}
+.dev-link:hover { border-color: var(--gold); background: var(--gold-dim); }
+
+/* ── FLOATING ── */
+.float-wa {
+  position: fixed; bottom: 30px; right: 30px;
+  background: #25D366; color: var(--white);
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; z-index: 900; text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  animation: waBounce 2.5s ease-in-out infinite;
+}
+@keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.float-wa:hover { background: #1db954; transform: scale(1.1) !important; }
+.float-top {
+  position: fixed; bottom: 100px; right: 30px;
+  background: var(--black-mid); color: var(--gold);
+  width: 44px; height: 44px;
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; z-index: 900; cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: all 0.3s; font-family: 'Jost', sans-serif;
+}
+.float-top.visible { opacity: 1; visibility: visible; }
+.float-top:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--black-mid); color: var(--gold);
+  border: 1px solid var(--glass-border);
+  padding: 14px 32px; font-size: 0.78rem;
+  font-weight: 300; letter-spacing: 2px;
+  z-index: 9998; opacity: 0; transition: all 0.4s;
+  font-family: 'Jost', sans-serif;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9996;
+  background: rgba(15,23,42,0.97);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: all 0.4s;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: 90vw; max-height: 85vh; object-fit: contain;
+  border: 1px solid var(--glass-border);
+}
+.lightbox-close {
+  position: absolute; top: 30px; right: 40px;
+  color: var(--gold); font-size: 2rem;
+  cursor: pointer; line-height: 1;
+  transition: opacity 0.2s;
+}
+.lightbox-close:hover { opacity: 0.6; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0}to{opacity:1} }
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal.vis { opacity:1; transform:translateY(0); }
+.reveal-l { opacity:0; transform:translateX(-36px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal-l.vis { opacity:1; transform:translateX(0); }
+.reveal-r { opacity:0; transform:translateX(36px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal-r.vis { opacity:1; transform:translateX(0); }
+.stagger > * { opacity:0; transform:translateY(22px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.stagger.vis > *:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+.stagger.vis > *:nth-child(2){opacity:1;transform:none;transition-delay:0.1s}
+.stagger.vis > *:nth-child(3){opacity:1;transform:none;transition-delay:0.2s}
+.stagger.vis > *:nth-child(4){opacity:1;transform:none;transition-delay:0.3s}
+.stagger.vis > *:nth-child(5){opacity:1;transform:none;transition-delay:0.4s}
+.stagger.vis > *:nth-child(6){opacity:1;transform:none;transition-delay:0.5s}
+.stagger.vis > *:nth-child(7){opacity:1;transform:none;transition-delay:0.6s}
+.stagger.vis > *:nth-child(8){opacity:1;transform:none;transition-delay:0.7s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .about-grid,.why-grid-wrap,.reservasi-grid,.kontak-grid{grid-template-columns:1fr;gap:50px}
+  .testi-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+  .why-img{height:400px}
+  .about-img-accent{display:none}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item:first-child{grid-row:span 1}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .testi-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .menu-filter{flex-wrap:wrap;width:100%}
+  .filter-btn{border-right:none;border-bottom:1px solid var(--glass-border)}
+  .filter-btn:last-child{border-bottom:none}
+  h1.hero-title{font-size:3rem}
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none}
+}
+@media(max-width:480px){
+  .hero-btns{flex-direction:column;align-items:flex-start}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .hero-rating{display:none}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-line"></div>
+  <div class="loader-logo-wrap">
+    <div class="loader-g">G</div>
+    <div class="loader-name">Gormeteria · Bandung</div>
+  </div>
+  <div class="loader-progress"><div class="loader-progress-fill"></div></div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-text">Gormeteria</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#kontak">Contact</a></li>
+      <li><a href="#reservasi" class="nav-reserve">Book a Table</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">Our Story</a>
+  <a href="#menu" onclick="closeMobile()">Signature Menu</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
+  <a href="#reservasi" onclick="closeMobile()">Reservation</a>
+  <a href="#kontak" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Premium Restaurant · Bandung · Est. 2015</div>
+    </div>
+    <h1 class="hero-title">Experience<br><em>Exceptional</em><br>Dining</h1>
+    <p class="hero-sub">Where great food, elegant atmosphere, and unforgettable moments come together.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#reservasi" class="btn-ghost">Book a Table</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-text">Scroll Down</div>
+  </div>
+  <div class="hero-rating">
+    <div class="hero-rating-num">4.6</div>
+    <div class="hero-rating-stars">★★★★★</div>
+    <div class="hero-rating-label">8,000+ Reviews</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <div class="marquee-item">Signature Steak <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Premium Dining <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Artisan Coffee <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Gourmet Burgers <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Asian Fusion <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Elegant Ambience <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Bandung's Favorite <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Signature Steak <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Premium Dining <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Artisan Coffee <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Gourmet Burgers <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Asian Fusion <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Elegant Ambience <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Bandung's Favorite <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal-l">
+        <div class="about-gold-line"></div>
+        <div class="about-img-main"></div>
+        <div class="about-img-accent"></div>
+      </div>
+      <div class="about-content reveal-r">
+        <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Our Story</div></div>
+        <h2 class="section-title about-title">A <em>Culinary</em><br>Journey in Bandung</h2>
+        <p class="about-text">Gormeteria was born from a simple belief: that every meal should be a memorable experience. Nestled in the heart of Bandung, we combine premium ingredients, culinary craftsmanship, and a space designed to make every moment feel special.</p>
+        <p class="about-text">From our signature steaks to handcrafted desserts and artisan coffee, every dish on our menu reflects our commitment to quality, creativity, and consistency. We don't just serve food — we curate dining moments.</p>
+        <div class="about-stats stagger">
+          <div class="about-stat">
+            <span class="about-stat-num" data-count="8000" data-suffix="+">0</span>
+            <div class="about-stat-label">Customer Reviews</div>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num" data-count="46" data-suffix="/5" data-decimal="1">0</span>
+            <div class="about-stat-label">Average Rating</div>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num" data-count="50" data-suffix="+">0</span>
+            <div class="about-stat-label">Signature Dishes</div>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num" data-count="9" data-suffix="+">0</span>
+            <div class="about-stat-label">Years of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="menu-header reveal">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div><div class="eyebrow-text">Signature Menu</div><div class="eyebrow-line"></div></div>
+      <h2 class="section-title" style="color:var(--white)">The <em>Gormeteria</em> Experience</h2>
+      <p style="color:var(--text-dim);font-size:0.88rem;font-weight:300;margin-top:12px">Crafted with premium ingredients, served with passion</p>
+    </div>
+    <div class="menu-filter" id="filterBar">
+      <button class="filter-btn active" onclick="filterMenu('all',this)">All</button>
+      <button class="filter-btn" onclick="filterMenu('steak',this)">Steak</button>
+      <button class="filter-btn" onclick="filterMenu('pasta',this)">Pasta</button>
+      <button class="filter-btn" onclick="filterMenu('burger',this)">Burger</button>
+      <button class="filter-btn" onclick="filterMenu('asian',this)">Asian Fusion</button>
+      <button class="filter-btn" onclick="filterMenu('dessert',this)">Dessert</button>
+      <button class="filter-btn" onclick="filterMenu('drinks',this)">Drinks</button>
+    </div>
+    <div class="menu-grid" id="menuGrid">
+
+      <div class="menu-card" data-cat="steak">
+        <div class="menu-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Big_mac_hamburger.jpg/640px-Big_mac_hamburger.jpg" alt="Wagyu Sirloin"
+            onerror="this.closest('.menu-img').style.background='linear-gradient(135deg,#1a0a00,#3a1a00)';this.style.display='none'"
+            style="object-position:center">
+          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&q=80" alt="Wagyu Sirloin"
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Steak Selection</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Wagyu Sirloin</div>
+          <div class="menu-desc">Premium wagyu beef, slow-seared to perfection with house butter, served with roasted garlic mash and seasonal vegetables.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp175.000</div>
+            <button class="menu-order" onclick="orderWA('Wagyu Sirloin')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="steak">
+        <div class="menu-img" style="background:url('https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80') center/cover;"></div>
+        <div class="menu-img-overlay"></div>
+        <div class="menu-cat" style="position:relative;top:auto;left:auto;display:inline-block;margin:16px 0 0 16px;position:absolute;top:16px;left:16px">Chicken Steak</div>
+        <div class="menu-body">
+          <div class="menu-name">Grilled Herb Chicken</div>
+          <div class="menu-desc">Tender free-range chicken breast marinated in fresh herbs, grilled and plated with truffle cream sauce and crispy potatoes.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp95.000</div>
+            <button class="menu-order" onclick="orderWA('Grilled Herb Chicken')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="pasta">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1551183053-bf91798d765e?w=500&q=80" alt="Black Truffle Pasta" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Pasta Collection</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Black Truffle Fettuccine</div>
+          <div class="menu-desc">Silky egg fettuccine tossed in black truffle butter, aged parmesan, and crispy guanciale — a refined classic.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp115.000</div>
+            <button class="menu-order" onclick="orderWA('Black Truffle Fettuccine')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="burger">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" alt="The Gormeteria Burger" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Gourmet Burger</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">The Gormeteria Burger</div>
+          <div class="menu-desc">Double smash beef patty, aged cheddar, caramelized onion jam, house pickles, and signature gold sauce on a brioche bun.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp125.000</div>
+            <button class="menu-order" onclick="orderWA('The Gormeteria Burger')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="asian">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=500&q=80" alt="Miso Glazed Salmon" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Asian Fusion</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Miso Glazed Salmon</div>
+          <div class="menu-desc">Atlantic salmon lacquered in white miso and sake, served with edamame rice, micro greens, and dashi broth.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp135.000</div>
+            <button class="menu-order" onclick="orderWA('Miso Glazed Salmon')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="dessert">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&q=80" alt="Valrhona Lava Cake" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Dessert</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Valrhona Lava Cake</div>
+          <div class="menu-desc">Warm 72% dark chocolate lava cake, served with a quenelle of Madagascar vanilla ice cream and gold leaf.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp85.000</div>
+            <button class="menu-order" onclick="orderWA('Valrhona Lava Cake')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="drinks">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="Signature Pour-Over" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Artisan Coffee</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Signature Pour-Over</div>
+          <div class="menu-desc">Single-origin beans from the highlands of West Java, carefully brewed to highlight floral and citrus notes.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp75.000</div>
+            <button class="menu-order" onclick="orderWA('Signature Pour-Over')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="steak">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=500&q=80" alt="Chef's Ribeye" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Chef's Special</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Chef's Ribeye</div>
+          <div class="menu-desc">32-day dry-aged ribeye, bone-in, served tableside with chimichurri, bone marrow butter, and wild mushroom jus.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp165.000</div>
+            <button class="menu-order" onclick="orderWA('Chef's Ribeye')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-cat="drinks">
+        <div class="menu-img">
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&q=80" alt="Craft Mocktail" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="menu-img-overlay"></div>
+          <div class="menu-cat">Beverages</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Craft Mocktail</div>
+          <div class="menu-desc">Seasonal fruit-forward mocktails crafted with house-made shrubs, fresh herbs, and premium sparkling water.</div>
+          <div class="menu-footer">
+            <div class="menu-price">Rp80.000</div>
+            <button class="menu-order" onclick="orderWA('Craft Mocktail')">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid-wrap">
+      <div class="why-img reveal-l"></div>
+      <div class="reveal-r">
+        <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Why Gormeteria</div></div>
+        <h2 class="section-title" style="color:var(--white)">More Than<br>Just a <em>Meal</em></h2>
+        <div class="why-list stagger">
+          <div class="why-item">
+            <div class="why-num">01</div>
+            <div>
+              <div class="why-text-title">Premium Ingredients</div>
+              <div class="why-text-desc">We source the finest ingredients — from wagyu beef to single-origin coffee — to ensure every bite is exceptional.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div>
+              <div class="why-text-title">Elegant Atmosphere</div>
+              <div class="why-text-desc">A thoughtfully designed interior that sets the stage for intimate dinners, celebrations, and business gatherings.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div>
+              <div class="why-text-title">Professional Service</div>
+              <div class="why-text-desc">Our hospitality team is trained to anticipate your needs and make every visit feel personal and seamless.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">04</div>
+            <div>
+              <div class="why-text-title">Signature Recipes</div>
+              <div class="why-text-desc">Each dish is crafted by our executive chef — exclusive recipes you won't find anywhere else in Bandung.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">05</div>
+            <div>
+              <div class="why-text-title">Bandung's Most Loved</div>
+              <div class="why-text-desc">8,000+ five-star reviews speak for themselves. We're proud to be one of Bandung's most celebrated dining destinations.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-grid stagger">
+      <div class="stat-item">
+        <div class="stat-num" data-count="8000" data-suffix="+">0</div>
+        <div class="stat-label">Customer Reviews</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="46" data-suffix="/5" data-decimal="1">0</div>
+        <div class="stat-label">Star Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="50000" data-suffix="+">0</div>
+        <div class="stat-label">Happy Guests</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="50" data-suffix="+">0</div>
+        <div class="stat-label">Signature Dishes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimoni">
+  <div class="container">
+    <div class="testi-header reveal">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div><div class="eyebrow-text">Guest Reviews</div><div class="eyebrow-line"></div></div>
+      <h2 class="section-title"><em>What Our Guests</em> Say</h2>
+    </div>
+    <div class="testi-grid stagger">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Excellent food, elegant atmosphere, and outstanding service. The wagyu was cooked to absolute perfection — I've already booked my next visit."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Rafi Adriansyah</div>
+            <div class="testi-role">Google Review · Bandung</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"One of the best dining experiences in Bandung, full stop. The ambience is incredible and every single dish arrived looking like it belonged in a magazine."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sari Dewi</div>
+            <div class="testi-role">TripAdvisor · Jakarta</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Beautiful interior, delicious food, and professional staff. We celebrated our anniversary here and it couldn't have been more perfect. Truly world-class."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">H</div>
+          <div>
+            <div class="testi-name">Hendra & Nadia</div>
+            <div class="testi-role">Google Review · Bandung</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div><div class="eyebrow-text">Gallery</div><div class="eyebrow-line"></div></div>
+      <h2 class="section-title" style="color:var(--white)">A Glimpse of <em>Gormeteria</em></h2>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=90')">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Restaurant Interior" loading="lazy">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Restaurant Interior</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=1200&q=90')">
+        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80" alt="Signature Steak" loading="lazy">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Signature Steak</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1200&q=90')">
+        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80" alt="Artisan Dessert" loading="lazy">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Artisan Dessert</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=90')">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Artisan Coffee" loading="lazy">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Artisan Coffee</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=90')">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Dining Experience" loading="lazy">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Dining Experience</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservasi">
+  <div class="container">
+    <div class="reservasi-grid">
+      <div class="reservasi-left reveal-l">
+        <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Reservation</div></div>
+        <h2 class="section-title" style="color:var(--white)">Book Your<br><em>Table</em></h2>
+        <p class="reservasi-text">Reserve your table at Gormeteria and let us curate an unforgettable dining experience for you. For groups of 10 or more, please contact us directly.</p>
+
+        <div class="reservasi-info-item">
+          <div class="reservasi-info-icon">📍</div>
+          <div>
+            <div class="reservasi-info-label">Address</div>
+            <div class="reservasi-info-value">Jl. Pasir Kaliki No.176, Bandung, West Java</div>
+          </div>
+        </div>
+        <div class="reservasi-info-item">
+          <div class="reservasi-info-icon">📞</div>
+          <div>
+            <div class="reservasi-info-label">Phone</div>
+            <div class="reservasi-info-value"><a href="tel:02220524850">(022) 20524850</a></div>
+          </div>
+        </div>
+        <div class="reservasi-info-item">
+          <div class="reservasi-info-icon">🕐</div>
+          <div>
+            <div class="reservasi-info-label">Hours</div>
+            <div class="reservasi-info-value">Mon–Thu 11:00 – 22:00<br>Fri–Sun 10:00 – 23:00</div>
+          </div>
+        </div>
+        <div class="reservasi-info-item">
+          <div class="reservasi-info-icon">🍽</div>
+          <div>
+            <div class="reservasi-info-label">Services</div>
+            <div class="reservasi-info-value">Dine-in · Private Dining · Catering · Events</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reservasi-form reveal-r">
+        <div class="form-title">Make a Reservation</div>
+        <div class="form-subtitle">We'll confirm your booking within 2 hours.</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="res-name" placeholder="Your full name">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="res-phone" placeholder="08XX-XXXX-XXXX">
+          </div>
+          <div class="form-group">
+            <label>Number of Guests</label>
+            <input type="number" id="res-guests" placeholder="How many?" min="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Reservation Date & Time</label>
+          <input type="datetime-local" id="res-datetime">
+        </div>
+        <div class="form-group">
+          <label>Special Request (Optional)</label>
+          <textarea id="res-notes" placeholder="Anniversary, dietary requirements, seating preference..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitReservasi()">Confirm Reservation</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontak">
+  <div class="container">
+    <div class="kontak-grid">
+      <div class="reveal-l">
+        <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Find Us</div></div>
+        <h2 class="section-title kontak-info" style="color:var(--white)">Visit <em>Gormeteria</em></h2>
+        <div class="kontak-item" style="margin-top:36px">
+          <div class="kontak-icon">📍</div>
+          <div>
+            <div class="kontak-label">Address</div>
+            <div class="kontak-value">Jl. Pasir Kaliki No.176, Bandung,<br>West Java, Indonesia</div>
+          </div>
+        </div>
+        <div class="kontak-item">
+          <div class="kontak-icon">📞</div>
+          <div>
+            <div class="kontak-label">Phone</div>
+            <div class="kontak-value"><a href="tel:02220524850">(022) 20524850</a></div>
+          </div>
+        </div>
+        <div class="kontak-item">
+          <div class="kontak-icon">🕐</div>
+          <div>
+            <div class="kontak-label">Opening Hours</div>
+            <div class="kontak-value">Monday – Thursday: 11:00 – 22:00<br>Friday – Sunday: 10:00 – 23:00</div>
+          </div>
+        </div>
+        <div class="kontak-item">
+          <div class="kontak-icon">✉️</div>
+          <div>
+            <div class="kontak-label">Email</div>
+            <div class="kontak-value"><a href="mailto:hello@gormeteria.id">hello@gormeteria.id</a></div>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=Jl+Pasir+Kaliki+No+176+Bandung" target="_blank"
+          style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 32px;background:var(--gold);color:var(--black);font-size:0.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;font-family:'Jost',sans-serif"
+          onmouseover="this.style.background='var(--gold-light)'"
+          onmouseout="this.style.background='var(--gold)'">
+          Get Directions →
+        </a>
+      </div>
+      <div class="reveal-r">
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.1!2d107.5987!3d-6.9125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6ce3e9ed5f1%3A0x12345!2sJl.+Pasir+Kaliki+No.176%2C+Bandung!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Gormeteria</span>
+        <p class="footer-tagline">Where great food, elegant<br>atmosphere, and unforgettable<br>moments come together.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Instagram">📸</a>
+          <a href="#" class="social-icon" title="TikTok">🎵</a>
+          <a href="#" class="social-icon" title="Facebook">📘</a>
+          <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reservasi">Reservation</a></li>
+          <li><a href="#kontak">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#menu">Steak Selection</a></li>
+          <li><a href="#menu">Chicken Steak</a></li>
+          <li><a href="#menu">Pasta Collection</a></li>
+          <li><a href="#menu">Gourmet Burgers</a></li>
+          <li><a href="#menu">Asian Fusion</a></li>
+          <li><a href="#menu">Desserts & Coffee</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul class="footer-hours">
+          <li><span class="day">Mon – Thu</span><span class="time">11–22</span></li>
+          <li><span class="day">Fri</span><span class="time">11–23</span></li>
+          <li><span class="day">Sat – Sun</span><span class="time">10–23</span></li>
+        </ul>
+        <div style="margin-top:20px;padding:16px;border:1px solid var(--glass-border)">
+          <div style="color:var(--gold);font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Contact</div>
+          <a href="tel:02220524850" style="color:var(--text-dim);font-size:0.82rem;text-decoration:none;display:block">(022) 20524850</a>
+          <div style="color:var(--text-dim);font-size:0.78rem;margin-top:4px;font-weight:300">Jl. Pasir Kaliki No.176</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 <a href="#">Gormeteria</a>. All rights reserved. Bandung, Indonesia.</div>
+      <div class="footer-copy" style="font-style:italic;font-family:'Bodoni Moda',serif">Experience Exceptional Dining</div>
+    </div>
+  </div>
+</footer>
+
+<!-- DEVELOPER CREDIT -->
+<div class="dev-credit">
+  <div class="dev-credit-inner">
+    <span class="dev-text">Designed & developed by</span>
+    <a href="https://thanify-dev.netlify.app" target="_blank" class="dev-link">
+      ⚡ thanify.dev
+    </a>
+    <span class="dev-text">— Professional Web Development Services</span>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">×</div>
+  <img id="lightboxImg" src="" alt="Gallery">
+</div>
+
+<!-- FLOATS -->
+<a href="https://wa.me/6282136051763" target="_blank" class="float-wa" title="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<button class="float-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
+<script>
+// LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('out'), 1800);
+});
+
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx-4}px, ${my-4}px)`;
+});
+function animateRing() {
+  rx += (mx - rx - 18) * 0.12;
+  ry += (my - ry - 18) * 0.12;
+  ring.style.transform = `translate(${rx}px, ${ry}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .menu-card, .gallery-item').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+});
+
+// NAV
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 500);
+});
+
+// HAMBURGER
+function toggleMobile() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('hamburger').classList.remove('active');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// SCROLL REVEAL
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stagger').forEach(el => obs.observe(el));
+
+// COUNTER
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const isDecimal = el.dataset.decimal === '1';
+    let start = 0;
+    const inc = target / 70;
+    const timer = setInterval(() => {
+      start += inc;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = isDecimal
+        ? (start / 10).toFixed(1) + suffix
+        : Math.floor(start).toLocaleString('en') + suffix;
+    }, 2000 / 70);
+    cObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+// MENU FILTER
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.menu-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+// ORDER WA
+function orderWA(item) {
+  const msg = encodeURIComponent(`Hello Gormeteria! 🍽️\n\nI'd like to order: *${item}*\n\nCould you please provide more details? Thank you!`);
+  window.open(`https://wa.me/6282136051763?text=${msg}`, '_blank');
+}
+
+// RESERVATION
+function submitReservasi() {
+  const name = document.getElementById('res-name').value.trim();
+  const phone = document.getElementById('res-phone').value.trim();
+  const guests = document.getElementById('res-guests').value;
+  const dt = document.getElementById('res-datetime').value;
+  const notes = document.getElementById('res-notes').value.trim();
+  if (!name || !phone || !guests || !dt) { showToast('Please complete all required fields.'); return; }
+  const dtFormatted = new Date(dt).toLocaleString('en-ID', { dateStyle: 'full', timeStyle: 'short' });
+  let msg = `Hello Gormeteria! 🍽️\n\n*TABLE RESERVATION*\n─────────────────\n👤 Name: ${name}\n📞 Phone: ${phone}\n👥 Guests: ${guests} person(s)\n📅 Date & Time: ${dtFormatted}`;
+  if (notes) msg += `\n📝 Request: ${notes}`;
+  msg += `\n\nThank you! 🙏`;
+  window.open(`https://wa.me/6282136051763?text=${encodeURIComponent(msg)}`, '_blank');
+  showToast('✓ Reservation sent via WhatsApp!');
+}
+
+// LIGHTBOX
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
